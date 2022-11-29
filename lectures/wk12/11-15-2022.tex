@@ -314,7 +314,7 @@ Note that the first case is stable -- as it contains the unit circle -- while th
 Looking at the pole-zero diagram, we see that the diagram is the same: \\
 either way we have a zero at $z=0$ and a pole at $z=\frac12$. However the ROCs are different.
 
-\subsection{Generalizations from Causality to left/right-sided}
+\subsection{ Generalizations from Causality to left/right-sided}
 Right-sided signals $\leftrightarrow$ Causal $\leftrightarrow$ ROCs from some outer most pole $r_0$ to $\infty$ (includes $\infty$).
 
 Left-sided $\leftrightarrow$ Anti-causal $\leftrightarrow$ ROCs extend from innermost pole down to and including the origin.
@@ -357,7 +357,7 @@ But left-sided signals that are not anti-causal go all the way to the origin but
 
 You will see more nuances of this in the homework: problem set 10.
 
-\subsection{RoC Causality and Left/Right-sidedness Summary}
+\subsection{ RoC Causality and Left/Right-sidedness Summary}
 \begin{itemize}
     \item Causal RoC: $R_0<|z|$
     \item Right-sided but not causal RoC: $R_0<|z|<\infty$
@@ -373,7 +373,7 @@ A: No, constant signals are $|z|=1$.
 Anti-Causal ($h(n)=0,\forall n>0$) is always one-sided 
 whereas non-causal can also be two-sided (donut shaped RoCs).
 
-\subsection{Mixing Z Transforms}
+\subsection{ Mixing Z Transforms}
 Anytime you mix Z Transforms, you have to make sure the RoCs have a non-trivial overlap.\\
 Otherwise, one or the other is not convergent.
 
@@ -403,7 +403,7 @@ This is a non-causal (or 2-sided) decaying exponential signal.
 Sanity Check: Since each of the 2 parts of $x(n)$ is absolutely summable (as they are decaying exponentials), we know that the ROC must include the unit circle which it does!
 \end{shaded}
 
-\subsection{Convolution in Time}
+\subsection{ Convolution in Time}
 Let us feed in $x(n)=z^n$ to system $h(n)$ (which internally is a composition of $f(n)$ sent into a $g(n)$) to get out $y(n) =\hat H(z)z^n$.
 
 This means that $z^n$ is also an eigenfunction of an LTI system, just like $e^{i\omega}$ was but now you are not restricted to being on the unit circle.
@@ -418,12 +418,12 @@ Pattern matching to before, we see that $\hat H(z)=\hat F(z)\hat G(z)$.
 Big idea: Convolution in Time $\mapsto$ Multiplication in the Transform domain (just like with FT).
 \end{shaded}
 
-\subsection{Generalization of Convolution in Time}
+\subsection{ Generalization of Convolution in Time}
 If we pass $x(n)$ into a system $h(n)$ to get $y(n)=(x\ast h)(n)$.
 
 Then $\hat Y(z) = \hat X(z)\hat H(z)\implies \hat H(z)=\frac{\hat Y(z)}{\hat X(z)}$.
 
-\subsection{Time-Shift Property}
+\subsection{ Time-Shift Property}
 For a signal $x(n)$ with a Z Transform, let us define $y(n)\triangleq x(n-N)$.
 
 This shall have Z Transform: $\hat Y(z)=\hat X(z)z^{-N}$ which you know from you incredible EE120 Prof!

@@ -274,7 +274,7 @@ Given $x(n)\zt \Xhat$, show that $nx(n)\zt -z\dv{\Xhat}{z}$.
     &&\text{[Multiply both sides by $-z$]}
 \end{align*}
 
-\subsection{Impulse Response from Z Transforms with Differentiation}
+\subsection{ Impulse Response from Z Transforms with Differentiation}
 Given $\hat Q(z)=\frac z{(z-1)^2}$, what is $q(n)$?
 
 We know that $u(n)\zt \underbrace{\frac{z}{z-1}}_{\hat U(z)}$ which can take the derivative of:
@@ -290,7 +290,7 @@ Therefore using the differentiation property we just proved above, $q(n)=n u(n)$
 
 If we were to look at the dotplot of this, we would see a discrete ReLU: $0\ (\forall n\le0)$ and $n\ (\forall n\in\mathbb Z^+)$.
 
-\subsection{DT-LTI Systems Described by LCCDEs}
+\subsection{ DT-LTI Systems Described by LCCDEs}
 \begin{align*}
     a_0 y(n) + a_1 y(n-1) + \cdots + a_N y(n-N)
     &=
@@ -328,7 +328,7 @@ If we were to look at the dotplot of this, we would see a discrete ReLU: $0\ (\f
 Big Idea: Any DT-LTI Systems Describable by an LCCDE has a rational transfer function.
 \end{shaded}
 
-\subsection{Feedback Stabilization}
+\subsection{ Feedback Stabilization}
 \includegraphics[scale=0.2]{lectures/wk12/img/system.png}
 $\implies$
 \includegraphics[scale=0.17]{lectures/wk12/img/system2.png}
@@ -347,7 +347,7 @@ is exponential growth so not only is not BIBO stable, but it also does not have 
     &&\text{as }\lambda^n u(n)\zt \frac1{1-\lambda\zinv}=\frac{z}{z-\lambda},\quad|\lambda|<|z|
 \end{align*}
 
-\subsection{Shift Register with Gain Factors}
+\subsection{ Shift Register with Gain Factors}
 \[
     k(n) = \alpha\delta(n-1)
 \]
