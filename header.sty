@@ -1,0 +1,252 @@
+\usepackage{minted}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{multirow,booktabs}
+\usepackage[table]{xcolor}
+\usepackage{fullpage}
+\usepackage{lastpage}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage[margin=3cm]{geometry}
+\usepackage{amsmath}
+
+\usepackage{soul} % strikethru
+
+% Tikz arrows to point at equations
+\usepackage{tikz}
+\usepackage[outline]{contour} % glow around text
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{decorations.markings}
+\tikzset{>=latex} % for LaTeX arrow head
+\usepackage{xcolor}
+\colorlet{Icol}{blue!50!black}
+\colorlet{Ccol}{orange!90!black}
+\colorlet{Rcol}{green!50!black}
+\colorlet{loopcol}{red!90!black!25}
+\colorlet{pluscol}{red!60!black}
+\colorlet{minuscol}{blue!60!black}
+\newcommand\EMF{\mathcal{E}} %\varepsilon}
+\contourlength{1.5pt}
+\tikzstyle{EMF}=[battery1,l=$x(t)$,invert]
+\tikzstyle{internal R}=[R,color=Rcol,Rcol,l=$r$,/tikz/circuitikz/bipoles/length=30pt]
+\tikzstyle{loop}=[->,red!90!black!25]
+\tikzstyle{loop label}=[loopcol,fill=white,scale=0.8,inner sep=1]
+\tikzstyle{thick R}=[R,color=Rcol,thick,Rcol,l=$R$]
+\tikzstyle{thick C}=[C,thick,color=Ccol,Ccol,l=$C$]
+\tikzstyle{myswitch}=[closing switch,line width=0.3] %-{Latex[length=3]},
+
+\newcommand{\myvoltmeter}[2] 
+{  % #1 = name , #2 = rotation angle
+  \begin{scope}[transform shape,rotate=#2]
+  \draw[thick] (#1)node(){$\mathbf V$} circle (11pt);
+  \draw[rotate=45,-latex] (#1)  +(-17pt,0) --+(17pt,0);
+  \end{scope}
+}
+\usetikzlibrary{tikzmark}
+
+\newlength{\tabcont}
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=cyan,
+}
+% To make " match
+\usepackage[english]{babel}
+\usepackage[autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+% For easy derivatives without the \frac{\mathrm{d}^2 \omega}{\mathrm{d}\theta^2}
+\usepackage[thinc]{esdiff} % ex: \diff{f}{x} &\qquad \diff*[4]{g}{t}{t = 1}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+\usepackage{enumitem} % http://ctan.org/pkg/enumitem
+\setlist{nosep}
+\setlist[itemize]{topsep=-0.1cm}
+
+% \usepackage{physics} % for derivatives, (e.g. \dv, \pdv)
+\usepackage[siunitx]{circuitikz} %[symbols]
+% \usepackage{pdfpages} % so [pages={1,2}] works
+
+
+% code
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage{makecell}
+
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+% 
+
+\makeatletter
+\pgfkeys{/pgf/grid lines/.initial=2}
+
+\pgfdeclareshape{grid}{
+    % inherit most things from the rectangle shape
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{south}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{south east}
+    \inheritanchor[from=rectangle]{south west}
+    \inheritanchor[from=rectangle]{north east}
+    \inheritanchor[from=rectangle]{north west}
+    \inheritbackgroundpath[from=rectangle]
+
+    \savedmacro\lines{%
+        \pgfmathtruncatemacro\lines{\pgfkeysvalueof{/pgf/grid lines}}%
+    }
+
+    % draw the grid
+    \beforebackgroundpath{
+        % store lower right in xa/ya and upper right in xb/yb
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+        % compute distance between the lines
+        \pgfmathparse{(\the\pgf@xb-\the\pgf@xa)/(\lines + 1)}
+        \pgf@xc=\pgfmathresult pt
+        \pgfmathparse{(\the\pgf@yb-\the\pgf@ya)/(\lines + 1)}
+        \pgf@yc=\pgfmathresult pt
+
+        % draw grid
+        \c@pgf@counta=0
+        \c@pgf@countb\lines\relax
+        \pgf@xb=\pgf@xa
+        \advance\pgf@xb\pgf@xc\relax
+        \pgfmathloop
+            \ifnum\c@pgf@counta<\c@pgf@countb
+                \pgfpathmoveto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+                \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+                \advance\c@pgf@counta 1\relax
+                \advance\pgf@xb\pgf@xc\relax
+        \repeatpgfmathloop
+        % set \pgf@xb to the right side
+        \c@pgf@counta=0
+        \pgf@yb=\pgf@ya
+        \advance\pgf@yb\pgf@yc\relax
+        \pgfmathloop
+            \ifnum\c@pgf@counta<\c@pgf@countb
+                \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+                \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb}}
+                \advance\c@pgf@counta 1\relax
+                \advance\pgf@yb\pgf@yc\relax
+        \repeatpgfmathloop
+        \pgfusepath{stroke}
+    }
+
+    % add anchors for vertices (intersections of grid lines)
+    % and center points (centers of the small rectangles).
+    %
+    % vertex anchors are simply called 'x y' with '0 0' being the lower left
+    % vertex.
+    % center anchors are called 'center x y' with 'center 1 1' being the center
+    % of the lower left rectangle
+    \pgfutil@g@addto@macro\pgf@sh@s@grid{%
+        \c@pgf@counta\lines
+        \advance\c@pgf@counta 1\relax
+        \pgfmathloop\ifnum\c@pgf@counta>-1
+            {% group to allow nesting of loops
+                \c@pgf@countb\lines
+                \advance\c@pgf@countb 1\relax
+                \pgfmathloop\ifnum\c@pgf@countb>-1
+                    \pgfutil@ifundefined{pgf@anchor@grid@\the\c@pgf@counta\space\the\c@pgf@countb}{%
+                        % need to use xdef, so that \c@pgf@counta/b are expanded
+                        % vertices
+                        \expandafter\xdef\csname pgf@anchor@grid@\the\c@pgf@counta\space\the\c@pgf@countb\endcsname{%
+                            \noexpand\southwest \noexpand\pgf@xa=\noexpand\pgf@x \noexpand\pgf@ya=\noexpand\pgf@y
+                            \noexpand\northeast \noexpand\pgf@xb=\noexpand\pgf@x \noexpand\pgf@yb=\noexpand\pgf@y
+                            \noexpand\pgfmathparse{(\noexpand\the\noexpand\pgf@xb-\noexpand\the\noexpand\pgf@xa)/(\noexpand\lines + 1)*\the\c@pgf@counta}
+                            \noexpand\pgf@x=\noexpand\pgf@xa\noexpand\relax
+                            \noexpand\advance\noexpand\pgf@x\noexpand\pgfmathresult pt\noexpand\relax
+                            \noexpand\pgfmathparse{(\noexpand\the\noexpand\pgf@yb-\noexpand\the\noexpand\pgf@ya)/(\noexpand\lines + 1)*\the\c@pgf@countb}
+                            \noexpand\pgf@y=\noexpand\pgf@ya\noexpand\relax
+                            \noexpand\advance\noexpand\pgf@y\noexpand\pgfmathresult pt\noexpand\relax
+                        }
+                        % centers
+                        \expandafter\xdef\csname pgf@anchor@grid@center\space\the\c@pgf@counta\space\the\c@pgf@countb\endcsname{%
+                            \noexpand\southwest \noexpand\pgf@xa=\noexpand\pgf@x \noexpand\pgf@ya=\noexpand\pgf@y
+                            \noexpand\northeast \noexpand\pgf@xb=\noexpand\pgf@x \noexpand\pgf@yb=\noexpand\pgf@y
+                            \noexpand\pgfmathparse{(\noexpand\the\noexpand\pgf@xb-\noexpand\the\noexpand\pgf@xa)/(2*(\noexpand\lines + 1))*(2*\the\c@pgf@counta-1)}
+                            \noexpand\pgf@x=\noexpand\pgf@xa\noexpand\relax
+                            \noexpand\advance\noexpand\pgf@x\noexpand\pgfmathresult pt\noexpand\relax
+                            \noexpand\pgfmathparse{(\noexpand\the\noexpand\pgf@yb-\noexpand\the\noexpand\pgf@ya)/(2*(\noexpand\lines + 1))*(2*\the\c@pgf@countb-1)}
+                            \noexpand\pgf@y=\noexpand\pgf@ya\noexpand\relax
+                            \noexpand\advance\noexpand\pgf@y\noexpand\pgfmathresult pt\noexpand\relax
+                        }
+                    }{\c@pgf@countb0\relax}
+                    \advance\c@pgf@countb-1\relax
+                \repeatpgfmathloop
+            }
+            \advance\c@pgf@counta-1\relax
+        \repeatpgfmathloop
+    }
+}
+\makeatother
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+\newtheorem{note}{Note}
+
+% imp box
+\usepackage{xcolor,mdframed}
+\newenvironment{important}[1][]{%
+   \begin{mdframed}[%
+      backgroundcolor={red!15}, hidealllines=true,
+      skipabove=0.7\baselineskip, skipbelow=0.7\baselineskip,
+      splitbottomskip=2pt, splittopskip=4pt, #1]%
+   \makebox[0pt]{% ignore the withd of !
+      \smash{% ignor the height of !
+         \fontsize{32pt}{32pt}\selectfont% make the ! bigger
+         \hspace*{-19pt}% move ! to the left
+         \raisebox{-2pt}{% move ! up a little
+            {\color{red!70!black}\sffamily\bfseries !}% type the bold red !
+         }%
+      }%
+   }%
+}{\end{mdframed}}
+% imp box
+
+\usepackage{pdfpages}
