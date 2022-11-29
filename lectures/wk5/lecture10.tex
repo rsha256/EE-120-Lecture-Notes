@@ -1,0 +1,105 @@
+\section{Thursday, September 29th}
+\subsection{CT-LTI Freq Resp (contd)}
+Given the RC circuit from last time:
+
+\begin{tikzpicture}
+  \def\ang{220}
+  \def\a{0.9}
+  \def\b{0.8}
+%   \draw[->,Icol] ({1.5+\a*cos(\ang)},{1+\b*sin(\ang)}) arc (\ang:-40:{\a} and {\b})
+%   ;
+  \draw (0,0) to[EMF] (0,2) --++(3,0)
+              to[thick R] ++(0,-2) to[thick C] (0,0);
+  \fill[black] (1.25,2) circle (0.03);
+  \draw[line width=0.6] (1.25,2) --++ (0.48,0);
+  \node at (-0.35,0.7) {$-$};
+  \node at (-0.35,1.4) {$+$};
+  \node[minuscol,scale=0.8] at (1.0,-0.25) {$-Q$};
+  \node[pluscol,scale=0.8] at (1.98,-0.25) {$+Q$};
+  \node[Ccol, scale=0.8] at (1.5,0.6) {$y_C(t)$};
+  \node[Rcol, scale=0.8] at (2.1, 1.3) {$y_R(t)$};
+\end{tikzpicture}
+
+Circuit diff eq:
+\[
+    RC\Dot{y}_C(t) + y_C(t) = x(t)
+\]
+
+Let $x(t) = e^{i\omega t}\mapsto H_C(\omega) e^{i\omega t}$.
+
+Therefore:
+\[
+    H_C(\omega) = \frac{\frac1{RC}}{i\omega + \frac1{RC}}
+     = \frac{\frac1{RC}}{i\omega - \left(-\frac1{RC}\right)}
+\]
+
+This gives us a Low-Pass Filter with a peak at $\frac{\frac1{RC}}{\frac1{RC}}=1$ at 0 and a cutoff frequency of $\omega_c = -3dB=20\log_{10}\left(\frac1{\sqrt{2}}\right)$.
+
+\begin{align*}
+    \angle H(\omega)
+    &= \angle \frac1{RC} - \angle \vec r
+    \\
+    &= \angle \frac1{RC} - \angle (i\omega + \frac1{RC})
+    \\ 
+    &= 0 - \angle (i\omega + \frac1{RC})
+    \\
+    &= -\arctan(\frac{\omega}{1/RC})
+\end{align*}
+
+Note: The phase of 0 is undefined.
+
+\subsubsection{Impulse Response Revisited}
+\[
+    h_C(t) = \frac1{RC} e^{-\frac t{RC}} u(t)
+\]
+
+\[
+    g(t) = \beta e^{-\alpha t} u(t) \iff G(\omega) = \frac{\beta}{i\omega + \alpha}
+\]
+
+\[
+    h_C(t) = \frac1{RC} e^{-t/{RC}} u(t)
+    \iff
+    H_C(\omega) = \frac{\overbrace{1/{RC}}^\beta}{i\omega + \underbrace{1/{RC}}_{\alpha}}
+\]
+
+\hrulefill
+
+\begin{align*}
+    RC\Dot{y}_C(\tau) + y_C(\tau) &= x(\tau)
+    \\
+    RC \Dot{h}_C(\tau) + {h}_C(\tau)
+    &= \delta(\tau)
+    &&\text{[Note that this is the Dirac Delta]}
+    \\
+    RC \Dot{h}_C(\tau) e^{\tau/{RC}} + {h}_C(\tau) e^{\tau/{RC}}
+    &= \delta(\tau) e^{\tau/{RC}}
+    &&\text{[Mult. both sides by non-0 func $e^{\tau/{RC}}$]}
+    \\
+    &= \delta(\tau)
+    \\
+    \underbrace{\Dot{h}_C(\tau) e^{\tau/{RC}} + \frac1{RC} {h}_C(\tau) e^{\tau/{RC}}
+    = \frac1{RC} \delta(\tau)}_{\dfrac{\mathrm d}{\mathrm d\tau}[h_C(\tau) e^{\tau/{RC}}]=\frac1{RC}\delta(\tau)}
+    &= \frac1{RC}\delta(\tau)
+    &&\text{[Product Rule of Differentiation]}
+\end{align*}
+
+\begin{shaded}
+Note that we prefer integration over differentiation as differentiation is a numerically unstable operation when you have noise which comes hand-and-hand with analog systems.
+\end{shaded}
+
+\subsection{Integrator-Adder-Gain Block Diagram}
+DAG Block: By FTC, we know to get rid of derivatives, we must integrrate!
+
+\begin{align*}
+    RC\Dot{y}_C + y_C &= x
+    \\
+    RC{y}_C + \int y_C &= \int x
+    \\
+    {y}_C = - \frac1{RC}\int y_C &+ \frac1{RC}\int x
+\end{align*}
+
+\subsection{CT-LTI Systems described by LCCDEs}
+\subsection{RC-Ckt}
+\subsection{Mass-Spring Damper}
+See homework 5 q2.

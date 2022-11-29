@@ -1,0 +1,260 @@
+\section{Tuesday, October 4th}
+\subsection{Mass-Spring-Damp}
+Note that you can have different matrices but they will be similar matrices (have the same eigenvalues).
+
+\begin{align*}
+    M\ddot y+D\dot y+Ky=x
+    \\
+    \dot q = \underbrace{\begin{bmatrix}0&1\\-\frac KM&-\frac DM\end{bmatrix}}_A \vec q+\begin{bmatrix}
+        0\\
+        \frac1M
+    \end{bmatrix}
+    x
+    \\
+    y = \underbrace{\begin{bmatrix}1&0\end{bmatrix}}_C \vec q
+\end{align*}
+
+\begin{align*}
+    \det(\lambda I-A) = \lambda^2+\frac DM \lambda +\frac KM = 0
+    \\
+    \implies
+    \lambda=-\frac D{2M}\pm\frac12\sqrt{\left(\frac{D}{M}\right)^2 - \frac{4K}{M}}
+    \\
+    \implies
+    \lambda=-\frac D{2M}\pm\sqrt{\left(\frac{D}{2M}\right)^2 - \frac{K}{M}}
+    \\
+    \implies
+    \lambda=-\frac D{2M}\pm\frac D{2M}\sqrt{1 - \frac{K}{M}\left(\frac{2M}{D}\right)^2}
+\end{align*}
+
+\hrulefill
+
+Now we can look at cases: $D=0$
+\begin{align*}
+    \lambda = \pm\sqrt{-\frac KM}
+    = \pm i\sqrt{\frac KM}= \pm i\omega
+    \\
+    \omega_0 = \sqrt{\frac{K}{M}}
+    \\
+    \left(\frac{D}{2M}\right)^2 - \frac KM = 0 
+    \implies \lambda_1 = \lambda_2 = -\frac{D}{2M}
+    \\
+    \left(\frac{D}{2M}\right)^2 - \frac KM > 0 
+\end{align*}
+As you keep on increasing $D$, the 2 roots collide and collapse on $-\frac D{2M}$ which is a negative real number (on the negative x-axis).
+
+\hrulefill
+
+\begin{align*}
+    \left(\frac{D}{2M}\right)^2 - \frac KM < 0 
+    \\
+    \implies \lambda_1, \lambda_2 \in\mathbb C
+\end{align*}
+
+\hrulefill
+
+If we let 
+\begin{align*}
+    \lambda_1 = -\frac D{2M}+\frac D{2M}\sqrt{1 - \frac{K}{M}\left(\frac{2M}{D}\right)^2}
+    &&\text{[This will be right of $\frac{-D}{2M}$ as we add sth $>0$ to a negative]}
+    \\\lambda_2 = -\frac D{2M}-\frac D{2M}\sqrt{1 - \frac{K}{M}\left(\frac{2M}{D}\right)^2}
+    &&\text{[This will be left of $-\frac{D}{2M}$ as we subtract from a negative]}
+\end{align*}
+This works due to the sqrt being strictly positive and less than 1 (due to being 1 minus some positive quantity).
+
+We call it the overdamped case when we are to the left.
+
+\hrulefill
+
+Assuming we do not have the pathologically designed (Critically Damped) case of a single repeated eigenvalue then choosing our state vector to contain the \textbf{position} and \textbf{velocity}. Then we get
+\[
+    \dot q(t) = A q(t)
+\]
+or
+\[
+    q(t) = e^{At} q(0)
+\]
+
+So our initial position initial velocity are given by $q(0)$. Then 
+\begin{align*}
+    q(0) 
+    &= 
+    \alpha_1\vec v_1 + \alpha_2 \vec v_2
+    \\
+    \vec q(t) 
+    &= 
+    \alpha_1 e^{At} \vec v_1 + \alpha_2 e^{At} \vec v_2
+    &&\text{[Note $e^{At}=\sum_{k=0}^\infty {t^kA^k}{k!}$]}
+    \\
+    &\implies e^{At}\vec v_1=e^{\lambda_1 t \vec v_1}
+    &&\text{[Using the eigenfunction property]}
+\end{align*}
+
+\subsubsection{Purely Oscillatory}
+\begin{align*}
+    D=0\implies \lambda_1=i\omega_0, \lambda_2=-i\omega_0
+    \\
+    \vec q(t) = \alpha_1 e^{i\omega_0 t}\vec v_1+\alpha_2 e^{-i\omega_0 t}\vec v_2
+\end{align*}
+
+\hrulefill
+
+Case when $\lambda_1 < 0, \lambda_2 < 0$ and $\lambda_1, \lambda_2\in\mathbb R$:
+
+\begin{align*}
+    q_1(t)
+    &=\alpha_1 e^{\lambda_1 t}v_{11}+\alpha_2 e^{\lambda_2 t}v_{12}
+\end{align*}
+
+Another case is $\lambda_1=i\omega, \lambda_2=-i\omega$.
+
+Note that complex eigenvalues come in conjugate pairs. So $\lambda = \sigma\pm i\omega_1$.
+Note that $\sigma$ is a negative real scalar since eigenvalues need to be less than zero s.t. they decay.
+
+\[
+    \therefore q_1(t) = e^{\sigma t} \left[\alpha_1 e^{\lambda_1 t}v_{11}+\alpha_2 e^{\lambda_2 t}v_{12}\right]
+\]
+
+Therefore we get an oscillating decaying behavior.
+
+\subsection{Interconnections of LTI Systems}
+\subsubsection{Cascade Series}
+\[
+    x(t) \to \boxed{F} \to \boxed{G} \to y(t)
+\]
+is equivalent to 
+\[
+    x(t) \to \boxed{H} \to y(t)
+\]
+where $\boxed{H} := \boxed{\boxed{F} \to \boxed{G}}$
+
+\begin{align*}
+    h(t) &= (f \ast g)(t)
+    &&\text{[As $F\to f(t)$]}
+    \\
+    x(n)\triangleq e^{i\omega t}
+    \implies F \to F(\omega) e^{i\omega t}
+    &\implies G \to G(\omega) F(\omega) e^{i\omega t}
+    \\
+    H(\omega) &= F(\omega) G(\omega)
+\end{align*}
+We have now found a property for series:
+\begin{shaded}
+    \[
+        h(t) = (f \ast g)(t)
+    \]
+    \[
+        H(\omega) = F(\omega) G(\omega)
+    \]
+\end{shaded}
+
+\subsubsection{Parallel}
+Likewise we can see that we get:
+\begin{shaded}
+    \begin{align*}
+        h(t) &= (f + g)(t)
+        \\
+        H(\omega) &= F(\omega) + G(\omega)
+    \end{align*}
+\end{shaded}
+
+\subsubsection{Feedback}
+Given an LTI system with a feed-forward branch (Plant, $P(\omega)$) as well as a feedback branch (Controller, $K(\omega)$), find $H(\omega)$.
+
+We know from the eigenfunction property that:
+\[
+    y(t)= H(\omega)e^{i\omega t}
+\]
+
+Our input $x(t)\triangleq e^{i\omega t}$ tells us that:
+\begin{align*}
+    e^{i\omega t} + K(\omega)H(\omega)e^{i\omega t}
+    \to 
+    &\boxed{P(\omega)}
+    \to P(\omega)\left[e^{i\omega t}
+    +
+    K(\omega)H(\omega)e^{i\omega t}\right]
+    \\
+    P(\omega)\left[1+ K(\omega)H(\omega)\right]\cancel{e^{i\omega t}}
+    &=
+    H(\omega)\cancel{e^{i\omega t}}
+    &&\text{[$P(\omega) \to y(t)$]}
+    \\
+    H(\omega)
+    &=
+    \frac{P(\omega)}{1-K(\omega)P(\omega)}
+\end{align*}
+
+This is known as Black's Formula: \\
+(Forward Gain)/(1 - Loop Gain)
+
+\hrulefill
+
+\begin{align*}
+    -60 dB 
+    &= 20\log_10(\frac{|\text{Out}|}{|\text{In}|})
+    \\
+    |\text{Out}|=\frac1{1000}|\text{In}|
+\end{align*}
+
+\hrulefill
+
+What if we subtract $K(\omega)$ instead?
+
+
+Then we get the new equation:
+\[
+    H(\omega)
+    =
+    \frac{P(\omega)}{1-(-K(\omega)P(\omega))}
+    =
+    \frac{P(\omega)}{1+K(\omega)P(\omega)}
+    \approx
+    \frac1{K(\omega)}
+\]
+
+Let $|K(\omega)P(\omega)|\gg1 
+\ (\forall\omega\in[w_1, w_2])$ which is the frequency range of interest, we can then build flat $K(\omega)=K_0,$
+ for $K_0<1$.
+ 
+Note that here we assume the plant is stable -- which may not be necessarily true. If it is not the case then feedback can be used to stabilize it.
+
+\subsection{Application 2}
+I will title this after we get the main result.
+
+Let us now reverse the roles of the controller and plant. We will also make this a ``negative feedback loop'' as we will subtract $P(\omega)$ as it goes into the adder with the input which this sum then goes through $K(\omega)$ to give us or output.
+
+If $|K(\omega)P(\omega)|\gg1\ (\forall\omega\in[w_1, w_2])$ then:
+
+\[
+    H(\omega) = \frac{K(\omega)}{1+K(\omega)P(\omega)}
+    \implies
+    H(\omega) \approx \frac{\cancel{K(\omega)}}{\cancel{K(\omega)}P(\omega)}=\frac1{P(\omega)}
+\]
+This gives us an impulse response of $\delta$.
+
+The title of this application is Inverse System Design.
+
+\subsection{Application 3: Stabilization of Unstable Systems}
+Given a voltage source connected to a Capacitor, we have:
+\[
+    y(t)=\frac1C\int_{-\infty}^t z(\tau)\mathrm d\tau
+\]
+\[
+    h(t)=\frac1C\int_{-\infty}^t 
+    \delta(\tau)\mathrm d\tau
+    =\frac1C u(t)
+\]
+
+Is this absolutely integrable (e.g. $\int_{-\infty}^\infty |h(t)|\mathrm d t< \infty$)?\\
+Note that the Capacitor is not BIBO-Stable.
+
+Now with an RC circuit, realize that:
+\[
+    y(t)=\frac1C\int_{-\infty}^t z(\tau)\mathrm d\tau
+    =\frac1C\int_{-\infty}^t \frac{x(\tau)-y(\tau)}{R}\mathrm d\tau
+\]
+
+The gain of $\frac1R$ acts like $K$ and the gain of $\frac1C$ composed with the integrator acts like $P$.
+
+Conclusion: the RC circuit is actually a feedback system.

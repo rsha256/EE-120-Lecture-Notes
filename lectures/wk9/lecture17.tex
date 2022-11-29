@@ -1,0 +1,148 @@
+\section{Tuesday, October 25th}
+We started with the \textit{DTFS and DFT} which works for \textbf{periodic DT} signals.
+
+Then we moved onto \textit{CTFS} which works for \textbf{periodic CT} signals.
+
+Today we will look at the \textit{DTFT} which works for \textbf{aperiodic DT} signals.
+
+Later we will look at the \textit{CTFT} which works for \textbf{aperiodic CT} signals.
+
+\hrulefill
+
+However we have some good news in store!
+
+$h(n)$, which we define as either $h:\mathbb Z\to\mathbb R$ or $h:\mathbb Z\to\mathbb C$, can be written as $H(\omega)$ via \[H(\omega)=\sum_{n=-\infty}^\infty h(n)e^{-i\omega n}\]
+which is exactly the DTFT of $h$.
+
+Note that frequency responses will be $2\pi$-periodic instead of $p$-periodic and likewise $x\leftrightarrow H$ and $t\leftrightarrow \omega$.
+
+\begin{align*}
+    x(n) &= \frac1{2\pi}\int_{\langle2\pi\rangle} X(\omega) e^{i\omega n} \mathrm d \omega
+    &&\text{[Synthesis Eqn.]}
+    \\
+    X(\omega) &= \sum_{n=-\infty}^\infty x(n) e^{-i\omega n}
+    &&\text{[Analysis Eqn.]}
+\end{align*}
+
+\subsection{Method 2}
+\begin{align*}
+    x(t)=
+    &\frac1{2\pi} \int_{\langle2\pi\rangle} X(\omega) e^{i\omega n} \mathrm d \omega
+    &&\text{Note: can't have dirac delta on boundary}
+    \\
+    &\quad
+    \langle2\pi\rangle
+    =[\lambda,\lambda+2\pi]\quad\exists\lambda\in\mathbb R
+    &&\text{uncountable set}
+    \\
+    x(n)
+    &=\int_{\langle2\pi\rangle} \underbrace{\frac{\mathrm d \omega}{2\pi} X(\omega)}_{X_k \in \text{CTFT}} e^{-i\omega n}
+    &&\text{Spectrum}
+\end{align*}
+
+\subsubsection{Method 2: Alternate Explanation}
+Starting from:
+\begin{align*}
+    H(\omega)
+    &=\sum_{n=-\infty}^\infty h(n) \underbrace{e^{-i\omega n}}_{\phi_n(\omega)}
+    \\
+    P_n(\omega) = e^{-i\omega n}
+    \\
+    H(\omega+2\pi)=H(\omega)\quad\forall\omega\in\mathbb R
+    \\
+    \phi_n(\omega+2\pi)=e^{-i(\omega+2\pi)n} = e^{-i\omega n} \cancelto1{e^{-i2\pi n}}
+    \\
+    H = \sum_n h(n) \phi_n
+    \\
+    \langle H,\phi_\ell\rangle
+    =
+    \langle \sum_n h(n)\phi_n,\phi_\ell\rangle
+    &= 
+    \sum_n h(n)\langle \phi_n,\phi_\ell\rangle
+\end{align*}
+
+\subsection{Inner Product Definition}
+\begin{align*}
+    \langle F, G\rangle 
+    &\triangleq \int_{\langle2\pi\rangle} F(\omega)G^\ast(\omega)\mathrm d\omega
+\end{align*}
+
+\subsubsection{Method 2: Examples}
+\begin{align*}
+    \langle \phi_n, \phi_\ell \rangle 
+    &\triangleq 
+    \int_{\lambda}^{\lambda+2\pi} e^{-i\omega n} e^{i\omega\ell} \mathrm d\omega
+    \\
+    &=
+    \int_{\lambda}^{\lambda+2\pi} e^{i\omega(\ell-n)} \mathrm d\omega
+    \\
+    &= 0 &&\text{after integration}
+\end{align*}
+
+Therefore
+\begin{align*}
+    \phi_n(\omega)
+    &=e^{-i\omega n}
+    \\
+    \langle \phi_n, \phi_\ell \rangle 
+    &= 2\pi\delta(n-\ell)
+\end{align*}
+
+\hrulefill
+
+\begin{align*}
+    % h(n) 
+    % &= \frac1{2\pi} \int_{\langle2\pi\rangle}
+    % \\
+    \langle \phi_n, \phi_\ell \rangle  = 2\pi\delta(n-\ell)
+\end{align*}
+
+\subsection{Ideal lowpass filter}
+Let us have a freq. response that is 2$\pi$-periodic which is centered at 0 which length $2B$.
+
+\begin{align*}
+    h(n)
+    &=
+    \frac1{2\pi} \int_{-\pi}^\pi H(\omega) e^{i\omega n} \mathrm d\omega
+    \\
+    &=
+    \frac1{2\pi} \int_{-B}^B H(\omega) e^{i\omega n} \mathrm d\omega
+    \\
+    &=
+    \frac1{2\pi} \int_{-B}^B A e^{i\omega n} \mathrm d\omega
+    = \frac A{2\pi} \int_{-B}^B e^{i\omega n} \mathrm d\omega
+    \\
+    &=
+    \frac A{2\pi}
+    \left[-\frac{(i e^{i n \omega})}n\right]
+    _{-B}^B
+    \\&=
+    \frac A{2\pi}
+    \left(-\frac{(i e^{i n B})}n + \frac{(i e^{-i n B})}n\right)
+    \\&=
+    \frac A{n\pi}
+    \left(\frac{e^{i n B} - e^{-i n B}}{2i}\right)
+    \\
+    h(n)
+    &=
+    \frac A{2\pi} \sin(Bn)
+    &&\text{Note: Not causal}
+\end{align*}
+
+Note that $h\not\in\ell^1$ but $h\in\ell^2$ as decaying on the order of $\frac1n$ does not converge but decaying on the order of $\left(\frac1n\right)^2$ does converge so it is square summable.
+
+Note that the DTFT, $X(\omega)$, will still be defined, just discontinuous -- so the analysis equation will not work, we would need to find the DTFT some other way. This is due to $X(\omega)$ being impulsive in nature -- it has dirac delta(s).
+
+\subsection{Different Example}
+\begin{align*}
+    h(n)
+    &\triangleq
+    e^{i\omega_0n}\quad 0<\omega_0<\pi
+    \\
+    X(\omega)
+    &= \dots
+\end{align*}
+
+Note that $h\not\in\ell^1$ and $h\not\in\ell^2$ as it does not converge.
+
+\hrulefill

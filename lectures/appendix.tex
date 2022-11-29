@@ -1,0 +1,49 @@
+\section{Appendix}
+\subsection{Properties of the DTFT}
+
+\[
+    x(n)=\frac{1}{2 \pi} \int_{\langle 2 \pi\rangle} X(\omega) e^{i \omega n} d \omega \longleftrightarrow X(\omega)=\sum_{n=-\infty}^{\infty} x(n) e^{-i \omega n}
+\]
+
+\hrulefill
+
+\begin{table}[ht]
+  \renewcommand*{\arraystretch}{1.2}
+   \centering
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{|c|c|}
+    \hline Time domain & Frequency domain \\
+        \hline\makecell{$\forall n \in \mathbb{Z}, \quad x(n)$ is real\\\ } & \makecell{$\forall \omega \in \mathbb{R}, \quad X(\omega)=X^*(-\omega)$\\\ } \\
+        \hline\makecell{$\forall n \in \mathbb{Z}, \quad x(n)=x^*(-n)$\\\ } & \makecell{$\forall \omega \in \mathbb{R}, \quad X(\omega)$ is real\\\ } \\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}, \quad y(n)=x(n-N)$\\\ } 
+        & \makecell{\\$\forall \omega \in \mathbb{R}, \quad Y(\omega)=e^{-i \omega N} X(\omega)$\\\ } \\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}, \quad y(n)=e^{i \omega_1 n} x(n)$\\\ } 
+        & $\forall \omega \in \mathbb{R}, \quad Y(\omega)=X\left(\omega-\omega_1\right)$ \\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}$, \\
+        $y(n)=\cos \left(\omega_1 n\right) x(n)$\\\ } 
+        & \makecell{\\$\forall \omega \in \mathbb{R}$, \\
+        $Y(\omega)=\left(X\left(\omega-\omega_1\right)+X\left(\omega+\omega_1\right)\right) / 2$\\\ } \\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}$, \\
+        $y(n)=\sin \left(\omega_1 n\right) x(n)$\\\ } 
+        & \makecell{\\$\forall \omega \in \mathbb{R}$,\\ $Y(\omega)=\left(X\left(\omega-\omega_1\right)-X\left(\omega+\omega_1\right)\right) / {2 i}$\\\ } \\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}$, \\ $x(n)=a x_1(n)+b x_2(n)$\\\ } & \makecell{\\$\forall \omega \in \mathbb{R}$ \\ $X(\omega)=a X_1(\omega)+b X_2(\omega)$\\\ }\\
+        \hline\makecell{\\$\forall n \in \mathbb{Z}, \quad y(n)=(h * x)(n)$\\\ } & \makecell{\\$\forall \omega \in \mathbb{R}, \quad Y(\omega)=H(\omega) X(\omega)$\\\ } \\
+        \hline
+        \makecell{$\forall n \in \mathbb{Z}, \quad y(n)=x(n) p(n)$\\\ } & \makecell{\\$\forall \omega \in \mathbb{R}$,\\
+        $Y(\omega)=\frac{1}{2 \pi} \int_0^{2 \pi} X(\Omega) P(\omega-\Omega) d \Omega$\\\ }
+        \\
+        \hline
+        \makecell{\\$\forall n \in \mathbb{Z},$\\ 
+            $y(n)=$ 
+            $\begin{cases}x(n / N) & n \text { is a multiple of } N \\ 0 & \text { otherwise }\end{cases}$
+            \\\ 
+        }
+        & \makecell{$\forall \omega \in \mathbb{Z}$, 
+            \\
+            $Y(\omega)=X(N \Omega)$
+        }
+        \\
+        \hline
+    \end{tabular}
+  }
+\end{table}

@@ -1,0 +1,91 @@
+\section{Tuesday, September 27th}
+\subsection{Detour: DT-LTI Systems \& Internal Stability}
+State-Evolution Equation:
+\[
+    q(n+1) = A q(n) + B x(n)
+\]
+
+Output Equation:
+\[
+    y(n) = C q(n) + D x(n)
+\]
+
+\subsubsection{Internal Stability}
+Also called \textit{Asymptotic Stability} by some.
+
+Given
+\begin{align*}
+    q(n+1) = A q(n)
+    \\
+    y(n)=Cq(n)
+\end{align*}
+Zero-Input Response (ZIR). You start at $q(0)$ and just let the system go (in a circuit example, this could be seen as letting the capacitor be adapted my nature).
+
+\begin{shaded}
+The system is internally stable if $\displaystyle\lim_{n\to\infty}q(n)\to0$ regardless of the initial state ZIR $q(0)$.
+\end{shaded}
+
+Unrolling the recursion we get:
+\begin{align*}
+    q(n+1) &= A q(n)
+    \\
+    q(1) &= A q(0)
+    \\
+    q(2) &= A q(1) = A^2 q(0)
+    \\
+    &\vdots
+    \\
+    \Aboxed{q(n) &= A^n q(0)}
+\end{align*}
+
+If we assume $A$ has $N$ distinct eigenvectors $A\in\mathbb R^{N\times N}$ then we know:
+\[
+    A = V\Lambda V^{-1}
+\]
+
+Any initial state can be decomposed into a linear combination of eigenvectorsL
+\begin{align*}
+    \vec q(0) 
+    &= \alpha_1 \vec r_1 + \cdots + \alpha_N \vec r_N = \sum_{\ell=1}^N \alpha_\ell \vec r_\ell
+    \\
+    \vec q(0) 
+    &= \begin{bmatrix}
+        | & & | & & | \\
+        \vec v_1 & \cdots & \vec v_\ell & \cdots & \vec v_N \\
+        | & & | & & |
+    \end{bmatrix}
+    \\
+    \vec q(0) 
+    &= V\vec \alpha
+\end{align*}
+
+\begin{align*}
+    q(n) &= A^n q(0)
+    \\
+    A &= V\Lambda V^{-1}
+    \\
+    A^2
+    &= V\Lambda V^{-1}V\Lambda V^{-1} = V\Lambda^2 V^{-1}
+    \\
+    \vdots
+    \\
+    A^n 
+    &= V\Lambda^n V^{-1}
+    \\
+    &\implies
+    q(n) = V\Lambda^n V^{-1} q(0)
+    \\
+    q(n) &= V\Lambda^n \alpha
+\end{align*}
+Therefore the initial state is determined by the coefficients $\alpha_i$'s.
+
+Therefore regardless of the initial state is equivalent to saying regardless of the $\alpha_i$'s. For this to happen, we must impose some conditions on $\vec q(n)=\sum_{\ell=1}^N \alpha_\ell \lambda_\ell \vec v_\ell$
+
+This happens if and only if $|\lambda_i|<1\ (\forall i)$. If all the eigenvalues are within the unit circle then $\displaystyle \lim_{n\to\infty} (\lambda_\ell)^n \to 0\ (\forall \ell)$.
+
+Note that internal stability implies BIBO-stability but the converse is not true due to unobservable mode (something that cannot be excited by the input) e.g. hidden eigenvalues which are unstable.
+
+\subsubsection{Fib Example}
+See homework.
+
+\subsection{CT-LTI Systems \& Frequency Response}

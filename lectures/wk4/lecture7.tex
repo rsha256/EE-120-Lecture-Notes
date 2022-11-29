@@ -1,0 +1,300 @@
+\section{Tuesday, September 20th}
+\subsection{BIBO Stability (continued)}
+We say $H$ is BIBO-stable iff $$\sum_{n=-\infty}^\infty |h(n)| <\infty$$
+
+\subsubsection{Sufficiency}
+Proof:
+\begin{shaded}
+\[
+y(n)=\sum_{k=-\infty}^{\infty} h(k) x(n-k)
+\]
+
+Let $|x(n)| \leq B_x \forall n \in \mathbb{Z}$. Then we have that
+\begin{align*}
+|y(n)| &=\left|\sum_{k=-\infty}^{\infty} h(k) x(n-k)\right| \\
+& \leq \sum_{k=-\infty}^{\infty}|h(k) x(n-k)| \\
+& \leq \sum_{k=-\infty}^{k \infty}|h(k)| B_x \\
+& \leq B_x \sum_{k=-\infty}^{\infty}|h(k)|<\infty \\
+&=B_y
+\end{align*}
+for some $B_y<\infty$.
+\end{shaded}
+Definition Of BIBO Stability: Every bounded input produces a bonded output.
+
+\subsubsection{Necessity}
+The other direction of the proof.
+
+We can start with the contrapositive (Recall that the contrapositive of $A\implies B$ is $\lnot B\implies\lnot A$).
+
+We say that $h\in\ell^1$ if $\sum_n |h(n)|<\infty$ if h is absolutely summable, where $\ell^1$ is the space of all abs summable functions.
+
+\begin{shaded}
+Continuous Counterpart (will not go over today):
+
+We say that $h\in\mathcal L^1$ if $\int_n |h(n)|\mathrm n<\infty$ if h is absolutely integrable, where $\mathcal L^1$ is the space of all abs integrable functions.
+\end{shaded}
+
+Let us defined the parts of the proof:
+\begin{itemize}
+    \item $\lnot B: h$ is not abs summable $h\not\in\ell^1$.
+    \item $\lnot A: H$ is not BIBO Stable, per the previous definition.
+    \item $\lnot $ BIBO Stable: $\exists$ a bounded input that produces an unbounded output.
+    \begin{itemize}
+        \item Various ways to do this, such as finding an input relating to input response s.t. the output at a single point blows up.
+    \end{itemize}
+\end{itemize}
+
+Now we are ready to continue our proof for real-valued LTI systems:\\
+We begin by choosing an input
+\[
+    x(n) = \sgn(h(-n)), \text{ where } \sgn(\alpha) = \begin{cases} 1\quad\alpha>0 \\ 0\quad\alpha=0 \\ -1\quad\alpha<0 \end{cases}
+\]
+
+\begin{shaded}
+To understand the $\sgn$ fn., look at $v(n) = (-2)^n u(n)$
+
+Then $\hat v(n) = \sgn(v(-n))$ which is all 0 for negative n, and then alternates between 1 and -1 for all non-negative integers. Note that we will be 0 for all negative inputs.
+
+After time-reversing this, we will note that the mapping ($n\in\mathfrak E\mapsto 1, n\in\mathfrak O\mapsto -1$) still holds, where $\mathfrak E$ is the set of even integers and $\mathfrak O$ is the set of odd integers. Note that we will now be 0 for all positive inputs.
+
+We know that $\hat v(n)$ is bounded as it can only ever have 3 values. To be precise: $|x(n)|\le1\quad(\forall n)$.
+\end{shaded}
+
+Using this, we can find the particular timestep at which the signal blows up:
+\begin{align*}
+    x(k)\triangleq\sgn(h(-k))
+    &\implies
+    |x(k)|\le1\ (\forall k)
+    \\
+    \implies
+    x(k)
+    &= 
+    \begin{cases}\frac{h(-k)}{|h(-k)|} & \text{if } h(-k)\ne0\\ 0 & \text{e/w}\end{cases}
+    &&\text{[Can be shown via L'hopitals]}
+\end{align*}
+\begin{align*}
+    y(n) 
+    &= 
+    \sum_k x(k) h(n-k)
+    &&\text{[Convolution Sum]}
+    \\
+    y(0)
+    &= 
+    \sum_k x(k) h(-k)
+    \\
+    &= 
+    \sum_k \frac{h(-k)}{|h(-k)|} h(-k)
+    \\
+    &= 
+    \sum_k \frac{|h(-k)|^2}{|h(-k)|}
+    \\
+    &= 
+    \sum_k |h(-k)|
+    \\
+    &= 
+    \sum_\ell |h(\ell)| \to \infty
+    &&[\ell\triangleq-k]
+\end{align*}
+Therefore we have shown that $h\not\in\ell^1\implies\exists x, \text{ s.t. } |x(n)|\le B_x$ but the the corresponding output is not bounded. Contradiction.
+
+Example:
+\[
+    y(n)=\alpha y(n-1)+x(n),\quad h(n)=\alpha^n u(n)
+\]
+System is BIBO stable iff $|\alpha|<1$.
+
+Example:
+\[
+    h(n)=u(n)\quad h\not\in\ell^1
+\]
+If we convolve $h(n)$ with $x(n)$ to get $y(n)$, then we get $y(n)=\sum_{k=-\infty}^n x(k)$ which is a cumulative sum.
+
+Let $x(n)=1\quad\forall n$, then the output at say $n=0$, but this could be any point wlog, is infinite. This is as you are taking the cumulative sum of an infinite sum of constants.
+
+For another example of this ``blowing up'' behavior $x(n)=u(-n)=\sgn(u(-n))$ which perfectly overlaps when time-reserved giving $y(0)=\infty$. Since they both have 1 for all non-negative integer inputs.
+
+\subsection{BIBO Stability (continued)}
+A system is BIBO Stable if $|\lambda|<1$. If this condition is not satisfied tehn we do not have a frequency response. Note that in the special case of $\lambda=1$, we \textit{may} still have a frequency response exist.
+
+If $h\in\ell^1$, (aka if the system is BIBO-stable/absolutely summable), which means the frequency response $|H(\omega)|<\infty\ \forall\omega$ and that $H(\omega)$ is continuous in $\omega$. 
+
+\begin{align*}
+    |H(\omega)| 
+    &= |\sum_n h(n) e^{-i\omega n}|
+    \\
+    &\le \sum_n |h(n) e^{-i\omega n}|
+    &&\text{[Triangle Inequality]}
+    \\
+    &= \sum_n |h(n)| \underbrace{|e^{-i\omega n}|}_1
+    \\ 
+    &= 
+    \sum_n |h(n)| 
+    <
+    \infty
+\end{align*}
+    
+    
+Some LTI Systems have $h\not\in\ell^1$ but $h\in\ell^2$.
+
+Example from Calculus: Harmonic Series $=\sum \frac1n\not<\infty$ but $\sum \frac1{n^2}<\infty$.
+
+The ideal LPF $=\begin{cases}
+G_0 \quad \forall \omega\in(-\omega_c, \omega_c)
+\\
+0 \quad \text{e/w}.
+\end{cases}$
+which is a discontinuous boxcar, \\
+and $|\omega_c|<\pi$ as we are Low-Pass.
+
+Another example is $h(n)=G_0\frac{\sin(\omega_c n)}{n\pi}$.
+
+For $\ell^n,$ where $n > 2$, all bets are off. At the end of the semester we can use Laplace or Z-Transforms but we cannot say anything about their frequency responses as they may not even exist.
+
+Ideally we have $\ell^1$, but we can deal with $\ell^2$; however if we have $\ell^n, n>2$ then all bets are off.
+
+\subsection{LCCDEs \& Freq Resp.}
+Not all are LCCDE, but those that are have nice Freq Resp.
+
+\begin{equation*}
+    a_0 y(n) + a_1 y(n - 1) + \cdots +  a_N y(n - N) 
+    = b_0 x(n) + b_1 x(n-1) + \cdots + b_M (xn-M)
+\end{equation*}
+\begin{equation}\label{eq:3}
+    \sum_{k=0}^N a_k y(n-k) = \sum_{m=0}^M b_m x(n-m)
+\end{equation}
+
+Recall that for $y(n) = \alpha y(n-1) + x(n)$ or:\\
+$\underbrace{1}_{a_0}y(n) - \underbrace{1}_{a_1}\alpha y(n-1) = \underbrace{1}_{b_0}x(n),\ M=0,\ N=1$ where $\max(N, M) = $ order of the system.
+
+    
+\begin{align*}
+    \text{Let } x(n) 
+    &=
+    e^{i\omega n},
+    \\
+    y(n) 
+    &= 
+    H(\omega)e^{i\omega n}
+    \\
+    y(n-k) 
+    &= 
+    H(\omega)e^{i\omega (n-k)}
+    \\
+    y(n-k) 
+    &= 
+    H(\omega)e^{-i\omega k} e^{i\omega n}
+    \\
+    x(n-m) 
+    &= 
+    e^{i\omega(n-m)]} = e^{-i\omega m}e^{i\omega n}
+\end{align*}
+
+Plugging into \eqref{eq:3},
+\begin{align*}
+    \sum_{k=0}^N a_k H(\omega)e^{-i\omega k}\cancel{e^{i\omega n}}
+    &=
+    \sum_{m=0}^M b_m e^{-i\omega m}\cancel{e^{i\omega n}}
+    \\
+    \left(\sum_{k=0}^N a_k e^{-i\omega k}\right)H(\omega)
+    &=
+    \sum_{m=0}^M b_m e^{-i\omega m}
+    \\
+    &\implies
+    H(\omega)
+    = 
+    \frac{\sum_{m=0}^M b_m e^{-i\omega m}}{\sum_{k=0}^N a_k e^{-i\omega k}}
+    &&\text{[which is rational in $e^{i\omega}$]}
+\end{align*}
+
+Let $H(z)=\frac{B(z)}{A(z)},\quad B(z)=M^{\text{th}}$ order polynomial. 
+$A(z)=N^{\text{th}}$ order polynomial.\\
+$H(z)$ is rational in $z$.
+
+First order ($\max(M,N)=\max(0,1)=1$) IIR Filter: $H(\omega)=\frac b{a_0+a_1= e^{-i\omega}} = \frac1{1-\alpha e^{-i\omega}}$
+
+\subsection{LCCDEs \& State-Space Resp.}
+\begin{align*}
+    q(n+1) 
+    &= Aq(n)+Bx(n)
+    &&\text{[State-Evolution Eqn.]}
+    \\
+    y(n) 
+    &= Cq(n) + Dx(n)
+    &&\text{[Output Eqn.]}
+    \\
+    q(n)
+    &=\begin{bmatrix}
+        q_1(n)
+        \\
+        \vdots
+        \\
+        q_N(n)
+    \end{bmatrix}
+\end{align*}
+
+$x, y\in\mathbb R^1$, $A_{N\times N}$ is the state-transition matrix.\\
+$B_{N\times 1}$ is a column vector, $C_{1\times N}$ is a row vector, $D_{1\times1}$ is a scalar.
+
+Giving the current charge of the capacitor (a memory element) of a circuit, you do not care how it got there.
+
+Example: $y(n)+a_1 y(n-1) + a_2 y(n-2) = x(n)$.
+
+Note that this LCCDE example is particularly shifted as it doesnt have any delayed (shifted) term in $x$. Specifically, we can use this trick:
+
+Pick $q_1(n)=y(n-1), q_2(n)=y(n-2)$ such that $q_1(n)=q_2(n+1)$, \\
+where we picked all $y(n-k)\ \forall k\ne0$.
+
+Note that the order of this system is $\max(0, 2) = 2$ which makes $\dim(A) = 2\times 2$.
+
+\begin{align*}
+    \begin{bmatrix}
+        q_1(n+1)
+        \\
+        q_2(n+1)
+    \end{bmatrix}
+    &=
+    \underbrace{
+    \begin{bmatrix}
+         & 
+        \\
+        1 & 0 
+    \end{bmatrix}
+    }_\text{A}
+    \begin{bmatrix}
+        q_1(n)
+        \\
+        q_2(n)
+    \end{bmatrix}
+    +
+    \underbrace{
+    \begin{bmatrix}
+        \ 
+        \\
+        0
+    \end{bmatrix}
+    }_\text{B}
+    x(n)
+    \\
+    \implies
+    q_1(n+1)
+    = y(n)
+    &= 
+    -a_1\underbrace{y(n-1)}_{q_1(n)} -a_2\underbrace{y(n-2)}_{q_2(n)} + x(n)
+    \\
+    &= -a_1 q_1(n) -a_2 q_2(n) + x(n)
+    \\
+    y(n)
+    &=
+    \underbrace{
+    \begin{bmatrix}
+        -a_1 & -a_2
+    \end{bmatrix}}
+    _C
+    \begin{bmatrix}
+        q_1(n) 
+        \\ 
+        q_2(n)
+    \end{bmatrix}
+    + 
+    \underbrace{1}_D x(n)
+\end{align*}

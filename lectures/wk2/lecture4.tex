@@ -1,0 +1,258 @@
+\section{Tuesday, September 6th}
+\subsection{Euler's \& Inverse Euler's}
+\subsubsection{Euler's}
+\[
+    e^{i1t} = \cos(t)+i\sin(t)
+\]
+but the speed can be anything:
+\[
+    e^{i\omega t} = \cos(\omega t)+i\sin(\omega t)
+\]
+where $\omega$ has units of $\frac{\text{rad}}{\text{sec}}$. Note that $f$ OTOH has units of $\frac{\text{cycles}}{\text{sec}}=\text{Hz}$. also note that $2\pi$ has units of $\frac{\text{rad}}{\text{cycle}}$.
+
+Note that $\omega > 0 \implies \text{CCW movement}$, and $\omega < 0 \implies \text{CW movement}$
+
+\begin{shaded}
+Phasor: a vector that rotates around the unit circle.
+\end{shaded}
+
+Question:
+\begin{shaded}
+Given $e^{i\omega t}$ and $e^{-i\omega t}$, can you get $\cos(\omega t)$?
+\end{shaded}
+Answer:
+\[
+    e^{i\omega t} + e^{-i\omega t} = 2\cos(\omega t)
+    \implies
+    \boxed{\cos(\omega t)=\frac{e^{i\omega t} + e^{-i\omega t}}{2}}
+\]
+
+\subsubsection{Odd and Even functions}
+\[
+    \cos(-t) = \cos(t)
+\]
+\[
+    \sin(-t) = -\sin(t)
+\]
+
+\subsubsection{Inverse Euler's}
+Question:
+\begin{shaded}
+Given $e^{i\omega t}$ and $e^{-i\omega t}$, can you get $\sin(\omega t)$?
+\end{shaded}
+Answer:
+\[
+    e^{i\omega t} - e^{-i\omega t} = 2i\sin(\omega t)
+    \implies
+    \boxed{\sin(\omega t)=\frac{e^{i\omega t} - e^{-i\omega t}}{2i}}
+\]
+
+\subsection{Periodicity}
+You have probably seen periodicity before in simple harmonic motion (without dampening) in a Physics class' dynamics unit.
+
+Here is a nice story otherwise:
+\begin{shaded}
+This story of Romeo and Juliet is taken from a Cornell Professor.
+
+Romeo proposes to Juliet and she rejects him. The rejection discourages him but later on she decides to give him a chance. But being discouraged, he rejects her, discouraging her, but the proposal now makes him interested. And so the \textbf{cycle} continues.
+\end{shaded}
+This is an example of \textit{cyclic behavior}.
+
+Let us now define \textbf{CT Periodicity}.
+\subsubsection{CT Periodicity}
+$x:\mathbb R\mapsto \{\mathbb R \cup \mathbb C\}$ is periodic if $(\forall t\in\mathbb R),\quad x(t+T)=x(t)$ (for some) $\exists T>0 $.
+
+We say $T$ is the fundamental period if $T$ is the smallest possible value.
+
+Associated with the fundamental period is the fundamental frequency which is $\omega = \frac{2\pi}T \frac{\text{rad}}{\text{sec}}$ or $f=\frac1T \text{Hz}$.
+
+If $x(t)=C$ for some constant $C$, then the fundamental period is undefined.
+
+Example:
+\begin{shaded}
+Question: Find the period of
+\[
+    x(t)=\cos\left(\frac{2\pi}5 t\right)
+\]
+
+Answer: 
+$x(t+T)=\cos\left(\frac{2\pi}5 (t+T)\right)=\cos\left(\frac{2\pi}5 t+\frac{2\pi}5 T\right)=\cos\left(\frac{2\pi}5 t\right)$
+
+which implies $\frac{2\pi}5 T = 2\pi k\implies T=5k$ for some $k\in\{1,2,3,\ldots\}$. 
+
+$\min k = 1 \implies T = 5 \text{sec}$.
+\end{shaded}
+
+\newpage
+\subsubsection{DT Periodicity}
+If $N$ is the smallest such integer, we call it the fundamental period of $x$.
+
+Therefore the (fundamental) frequency is $\omega_0=\frac{2\pi}N$.
+
+Example:
+\begin{shaded}
+Question: Find the (fundamental) period of $x(n)=C, \quad\forall n\in\mathbb Z$?
+
+Answer: 
+Looking at the Samples (dotplot -- which is just $C$ for all $n$), we can see that $N= 1$ is the fundamental period if the DT signal is constant with $\omega_0=2\pi\frac{\text{rad}}{\text{sample}}$.
+\end{shaded}
+
+Example:
+\begin{shaded}
+Question: Find the fundamental period and frequency of $x(n)=e^{in}, \quad\forall n\in\mathbb Z$?
+
+Answer:
+This must hold $(\forall n\in\mathbb Z),$
+\[
+    e^{i(n+N)} = e^{in}e^{iN} = e^{in}
+\]
+for some $N\in\mathbb Z$.
+
+But $N=2\pi k\not\in\mathbb Z$.
+
+Therefore the answer is \textbf{not} $2\pi$ as that is not an integer. Therefore the period is undefined.
+
+We can see this graphically as we see that this jumps around the unit circle, never visiting the same point again.
+\end{shaded}
+
+Example:
+\begin{shaded}
+Question: Find the fundamental period and frequency of $x(n)=e^{i\frac\pi4n}, \quad\forall n\in\mathbb Z$?
+
+Answer:
+This must hold $(\forall n\in\mathbb Z),$
+\[
+    e^{\frac\pi4i(n+N)} = e^{\frac\pi4in}e^{\frac\pi4iN} \stackrel{\text{Want}}= e^{\frac\pi4in}
+\]
+for some $N\in\mathbb Z$.
+
+which happens when $e^{\frac\pi4iN}=1\implies \frac\pi4N=2\pi k\implies k = 1\implies N = 8$.
+
+Therefore we have (fundamental) frequency $\omega_0=\frac{2\pi}8=\frac\pi4$
+\end{shaded}
+
+\subsubsection{Necessary and Sufficient Conditions for DT Periodicity}
+Now we shall examine the necessary and Sufficient Conditions for $e^{i\omega n}$ to be periodic in $n$.
+
+\[
+    e^{i\omega (n+N)} = e^{i\omega n}
+\]
+\[
+    \cancel{e^{i\omega n}}e^{i\omega N} = \cancel{e^{i\omega n}}
+\]
+\[
+    \boxed{e^{i\omega N} = 1}
+\]
+
+Now, noting that $\omega$ must be a rational multiple of $\pi$, we get that:
+\[
+    \omega N = 2\pi k \implies N=\frac{2\pi k}\omega\stackrel{^\dagger}=\frac{2\pi}{\frac l m \pi}k = \frac{2m}l k
+\]
+\[
+    ^\dagger\omega = \frac{2\pi}N k \implies \frac l m = \frac{2k}N\implies \omega\triangleq\frac l m \pi
+\]
+
+\subsubsection{CT Periodicity}
+\[
+    x(t) = e^{i\omega t}
+\]
+appears to imply that the sky is the limit for $omega$ (i.e. $\omega\to\infty$).
+
+We note that the oscillations become progressivley faster.
+
+Slowest frequency is $\omega = 0$ (constant signal).
+
+\subsubsection{DT Slowest Frequency}
+Slowest frequency is $\omega = 0\frac{\text{rad}}{\text{sample}}$.
+
+\subsubsection{Fastest Frequency for Oscillating DT Signal}
+For odd multiples of $\pi$,
+\[
+    e^{i\pi n} = \cos(\pi n) = (-1)^n
+\]
+
+\subsection{Filters}
+There are 3 types:
+\begin{itemize}
+    \item Low-Pass Filter
+    \item High-Pass Filter
+    \item Band-Pass Filter
+\end{itemize}
+
+\subsection{Frequency Response of DT-LTI Systems}
+There is a special relationship that exists between the Kronecker Delta.
+\[
+    \delta(n) \ \texttt{->} \ \boxed{H} \ \texttt{->} \  y=\underbrace{h(n)}_\text{impulse response}
+\]
+
+and we have this
+\[
+    x(n) = e^{i\omega n} \ \texttt{->} \ \boxed{H} \ \texttt{->} \  \underbrace{y(n)}_\text{special form}
+\]
+
+Now we can convolve:
+\begin{align*}
+    y(n) &= (h\ast x)(n)
+    \\
+    &= \sum_m h(m)e^{i\omega(n-m)}
+    \\
+    y(n) &= \underbrace{\sum_m h(m) e^{-i\omega m}}_{H(\omega)} e^{i\omega n}
+\end{align*}
+
+\[
+    e^{i\omega n} \ \texttt{->} \ \boxed{\stackrel H h} \ \texttt{->} \  H(\omega)e^{i\omega n}
+\]
+
+This is analogous to eigenvalues: $\mathbf A\vec v=\lambda \vec v$ where $\lambda = H(\omega)\in\mathbb C$, $\vec v = e^{i\omega n}$, and where $\mathbf A=$ the system (the box).
+
+We call $H(\omega)$ the frequency response of the LTI system, obtained by plugging the impulse response into the summation: $$H(\omega)=\sum_{m=-\infty}^\infty h(m) e^{-i\omega m}$$.
+
+This property is known as the Eigenfunction Property of Complex Exponentials with respect to a DT-LTI System.
+
+\subsubsection{Modulation}
+\[
+  x(n) \ \texttt{->} \ \stackrel{\stackrel{e^{i\omega_1 n}}{\stackrel{|}{\texttt{v}}}}{\boxed{X}} \ \texttt{->} \ y(n) = e^{i\omega_1 n}x(n) = e^{i(\omega_0+\omega_1) n}
+\]
+
+\subsubsection{DT LTI Valid Examples}
+\[
+    \alpha_0e^{i\omega_0 n}+\alpha_1e^{i\omega_1 n} \ \texttt{->} \ \stackrel{\text{LTI}}{\boxed{\ }} \ \texttt{->} \  \alpha_0H(\omega_0)e^{i\omega_0 n}
+    +
+    \alpha_1H(\omega_1)e^{i\omega_1 n}
+\]
+If for example, we saw a $+ \alpha_3H(\omega_3)e^{i\omega_3 n}$ term then we would know our system is \textbf{not} LTI.
+
+\subsubsection{Frequency Response of 2-pt mvg avg filter}
+We want to find the frequency response for the 2-pt moving average filter:
+\[
+    x(n) \ \texttt{->} \ \boxed{H} \ \texttt{->} \ y(n) = \frac{x(n)+x(n-1)}2
+\]
+Note that if $x(n)=(-1)^n=e^{i\pi n}\implies y(n)=0\quad\forall n$.
+
+However if $x(n)=1=e^{i0n}\implies y(n)=1\quad\forall n$.
+
+Sanity check values:
+\[
+    H(\omega=0) = 1
+\]
+\[
+    H(\omega=\pi) = 0
+\]
+
+Finding the frequency repsonse:
+\begin{shaded}
+Finding the impulse repsonse:
+
+Let $x(n)=\delta(n) \implies h(n)=\frac{\delta(n)+\delta(n-1)}2$
+
+then we note the dotplot is $\frac12$ at $n=0$ and $n=1$ and $0$ everywhere else.
+\end{shaded}
+Now,
+\begin{align*}
+    H(\omega) &= \sum_m h(m) e^{-i\omega m}
+    \\
+    &= h(0) + h(1) e^{-i\omega}
+    \\
+    H(\omega) &= \frac{1+e^{-i\omega}}2
+\end{align*}
+

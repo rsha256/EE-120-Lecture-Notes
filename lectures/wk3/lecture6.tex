@@ -1,0 +1,196 @@
+\section{Thursday, September 15th}
+\subsection{IIR Filter Freq Resp}
+Given a First-Order IIR (Infinite Impulse Response, vs Finite Impulse Response)
+\begin{align*}
+    y(n)
+    &=
+    \alpha y(n=1)+x(n)
+    \\
+    y(-1)
+    &=
+    0
+    \\
+    |\alpha|
+    &<
+    1
+\end{align*}
+
+\begin{align*}
+    x(n)
+    &=
+    e^{i\omega n} \to y(n)=H(\omega)e^{i\omega n}
+    \\
+    y(n-1)
+    &=
+    H(\omega)e^{i\omega (n-1)} = H(\omega)e^{-i\omega}e^{i\omega n}
+\end{align*}
+
+\begin{align*}
+    H(\omega)\cancel{e^{i\omega n}} 
+    &= \alpha H(\omega)e^{-i\omega}\cancel{e^{i\omega n}}+\cancel{e^{i\omega n}}
+    \\
+    (1-\alpha e^{i\omega})H(\omega) 
+    &= 1
+    \\
+    H(\omega) 
+    = \frac1{1-\alpha e^{i\omega}} 
+    = |H(\omega)|e^{i\angle H(\omega)}
+\end{align*}
+
+\begin{align*}
+    H(\omega) 
+    &= \frac1{1-\alpha e^{i\omega}}
+    \\
+    |H(\omega)| 
+    &= \left|\frac1{1-\alpha e^{i\omega}}\right|
+    &&\text{[By property \eqref{eq:1}]}
+    \\
+    &= \frac1{|1-\alpha e^{i\omega}|}
+    \\
+    &= \frac1{|1-\alpha\cos(\omega)+i\alpha\sin(\omega)|}
+    \\
+    &= \frac1{\sqrt{(1-\alpha\cos(\omega))^2+\alpha^2\sin^2(\omega)}}
+\end{align*}
+
+\subsubsection{Properties}
+\begin{equation}\label{eq:1}
+    \left|\frac{z_1}{z_2}\right| = \frac{|z_1|}{|z_2|}
+\end{equation}
+\[
+    \angle \frac{z_1}{z_2} = \angle z_1 - \angle z_2
+\]
+
+\subsubsection{Plot}
+\begin{equation}\label{eq:2}
+    H(\omega) 
+    = \frac{e^{i\omega}}{e^{i\omega}-\alpha}
+    = \frac1{1-\alpha e^{i\omega}}
+\end{equation}
+
+At $\omega = 0$, we have the max response.\\
+At $\omega = \pm\pi$, we have the min response.\\
+Therefore this is a Low-Pass Filter:
+See the plot here:\\
+\href{https://www.desmos.com/calculator/oa25atozja}{https://www.desmos.com/calculator/oa25atozja}
+
+\begin{align*}
+    H(\omega) 
+    &= \sum_{n=-\infty}^\infty h(n) e^{-i\omega n}
+    = \sum_{n=0}^\infty \alpha^n e^{-i\omega n}
+    \\
+    &= \sum_n |h(n) e^{-i\omega n}| < \infty
+\end{align*}
+
+\begin{shaded}
+Q: How to make this (eq \eqref{eq:2}) low-pass filter into a high-pass filter?
+
+A: Somewhere $\alpha\in(-1, 0)$ with $\alpha=-1$ being the sharpest high-pass filter possible. This makes sense as we have a min when $\omega=0$ at $\frac1{1-\alpha}$ and maxima at $\pm\pi$.
+\end{shaded}
+
+\begin{shaded}
+Q: How to make this (eq \eqref{eq:2} peak at $\omega=\frac\pi4$?
+
+A: Now we will have a complex $\alpha=\lambda e^{i\frac\pi4}$ where $0\le|\lambda|\le1$ determines the aggressiveness of the filter.
+\end{shaded}
+
+\subsection{System Properties}
+\begin{align*}
+    \angle H(\omega) 
+    &= \angle \frac{e^{i\omega} - 0}{e^{i\omega}-\alpha}
+    \\
+    &= \angle{(e^{i\omega} - 0)} - \angle{(e^{i\omega}-\alpha)}
+    &&\text{[The phase is the difference in phases of the 2 vectors]}
+    \\
+    \omega=0
+    &\implies\angle H(\omega) = 0
+    &&\text{[Both are at 1, }0\le\alpha\le1]
+\end{align*}
+Plot: \href{https://www.desmos.com/calculator/rvkvjzwhws}{https://www.desmos.com/calculator/rvkvjzwhws}
+
+Think of a system which delays the input by $N,\  (\forall N\in\mathbb Z^+)$, samples (or the system which advances the input by $N,\  (\forall N\in\mathbb Z^-)$, samples):
+
+\newpage
+\subsubsection{Causality}
+\textbf{Does not peek ahead in time}
+
+Discrete Causality (note that continuous is similar, without the constraint on $N$):\\
+We say $H$ is causal if for every integer N,
+if it is the case that two signals $x_1, x_2\in X$ (where $X$ is the input space) are equal up to (and including) $n=N:$ 
+\\
+$x_1(n)=x_2(n)\quad(\forall n\le N)$ then $y_1(n)= y_2(n) \quad(\forall n\le N)$.
+
+Example:
+\begin{shaded}
+Given a linear system $H$ with input $x(n)=u(n)$ and output $y(n)=\begin{cases} 
+1 & n = -1\\
+2 & n = 0\\
+3 & n = 1\\
+0 & \text{e/w}\end{cases}$.
+\end{shaded}
+By the ZIZO property of Linearity, we realize that the zero signal should match up to and including $x_2(n)=u(n), (\forall n\le-1),$ with Zero-In, Zero-out: so input is $x_2(n)=0, (\forall n\in\mathbb Z)$. \textbf{However}, we expect $y(-1)=0$ since $y_2(-1)=0$ but $y(-1)=-1$ so we have a contradiction.
+
+\begin{shaded}
+What if $H$ is now TI but not Linear?
+\end{shaded}
+Let $x_2(n)=x_1(n-1)=u(n-1)$
+
+But then $y(-1)=1\ne y_2(-1)=0$ even though they match up to and including $-1$. So this is not causal.
+
+\subsubsection{BIBO Stability}
+Bounded-Input, Bounded-Output Stability
+
+We say a signal $x$ is bounded if $\exists 0 < B_x < \infty$ s.t. $|x(n)|<B_x, \quad(\forall n\in\mathbb Z)$.
+
+Graphically this can be seen as if all lollipops are bounded between (and including) $-B_x$ and $B_x$.
+
+
+BIBO Stability is exactly what it says:
+
+Given a discrete system $H$ (with no information on whether $H$ is Linear or Time Invariant),\\ 
+we say that $H$ is BIBO Stable if every bounded input produces a bounded output.
+
+Example: 3-point moving averager:
+\[
+    y(n) = \frac{x(n)+x(n-1)+x(n-2)}3
+\]
+We know $y$ is causal since it is only dependent on past value (it does not peek into the future). Specifically we can say that $h(n)=0,\quad(\forall n < 0)$.
+
+\[
+    y(n)
+    = \sum_{k=-\infty}^\infty h(k)x(n-k)
+    =y(n)=\underbrace{\cdots +h(-1) x(n+1)}_{\text{want to be identically zero}}+h(0) x(n)+h(1) x(n-1)+\cdots
+\]
+Note that this actually goes \textbf{both ways}. Mathematically that means the system is stable \textbf{if and only if} the response is 0 for all negative time.
+
+\begin{align*}
+    |y(n)|
+    &= \left|\frac{x(n)+x(n-1)+x(n-2)}3\right|
+    \\
+    &= \frac13\left|x(n)+x(n-1)+x(n-2)\right|
+    \\
+    &\le \frac13\left(|x(n)|+|x(n-1)|+|x(n-2)|\right)
+    \\
+    &\le \frac{B_x+B_x+B_x}3=B_x-B_y
+\end{align*}
+
+All BIBO filters are stable by induction on the triangle inequality (given that all lollipops are finite and not infinite).
+
+\subsubsection{BIBO DT-LTI Systems}
+We say $H$ is BIBO-stable iff $$\sum_{n=-\infty}^\infty |h(n)| <\infty$$
+
+Proof:
+\begin{shaded}
+\[
+y(n)=\sum_{k=-\infty}^{\infty} h(k) x(n-k)
+\]
+
+Let $|x(n)| \leq B_x \forall n \in \mathbb{Z}$. Then we have that
+\begin{align*}
+|y(n)| &=\left|\sum_{k=-\infty}^{\infty} h(k) x(n-k)\right| \\
+& \leq \sum_{k=-\infty}^{\infty}|h(k) x(n-k)| \\
+& \leq \sum_{k=-\infty}^{k \infty}|h(k)| B_x \\
+& \leq B_x \sum_{k=-\infty}^{\infty}|h(k)|<\infty \\
+&=B_y
+\end{align*}
+for some $B_y<\infty$.
+\end{shaded}
