@@ -1,5 +1,5 @@
 \section{Thursday, September 15th}
-\subsection{IIR Filter Freq Resp}
+\subsection{IIR Filter Frequency Response}
 Given a First-Order IIR (Infinite Impulse Response, vs Finite Impulse Response)
 \begin{align*}
     y(n)
@@ -69,9 +69,8 @@ Given a First-Order IIR (Infinite Impulse Response, vs Finite Impulse Response)
 
 At $\omega = 0$, we have the max response.\\
 At $\omega = \pm\pi$, we have the min response.\\
-Therefore this is a Low-Pass Filter:
-See the plot here:\\
-\href{https://www.desmos.com/calculator/oa25atozja}{https://www.desmos.com/calculator/oa25atozja}
+Therefore, this is a Low-Pass Filter; see the plot here:
+\href{https://www.desmos.com/calculator/oa25atozja}{https://www.desmos.com/calculator/oa25atozja}.
 
 \begin{align*}
     H(\omega) 
@@ -84,13 +83,13 @@ See the plot here:\\
 \begin{shaded}
 Q: How to make this (eq \eqref{eq:2}) low-pass filter into a high-pass filter?
 
-A: Somewhere $\alpha\in(-1, 0)$ with $\alpha=-1$ being the sharpest high-pass filter possible. This makes sense as we have a min when $\omega=0$ at $\frac1{1-\alpha}$ and maxima at $\pm\pi$.
+A: Set $\alpha$ to be in the region $(-1, 0)$, with $\alpha=-1$ being the sharpest high-pass filter possible. This makes sense as we have a min when $\omega=0$ at $\frac1{1-\alpha}$ and maxima at $\pm\pi$.
 \end{shaded}
 
 \begin{shaded}
-Q: How to make this (eq \eqref{eq:2} peak at $\omega=\frac\pi4$?
+Q: How to make this (eq \eqref{eq:2}) peak at $\omega=\frac\pi4$?
 
-A: Now we will have a complex $\alpha=\lambda e^{i\frac\pi4}$ where $0\le|\lambda|\le1$ determines the aggressiveness of the filter.
+A: We can set $\alpha=\lambda e^{i\frac\pi4}$ where $0\le|\lambda|\le1$ determines the aggressiveness of the filter.
 \end{shaded}
 
 \subsection{System Properties}

@@ -1,8 +1,7 @@
 \section{Tuesday, August 30th}
 \subsection{Review: LTI (Linear Time-Invariant) Systems}
 
-\begin{itemize}
-    \item Signals are functions
+\subsubsection{Signals are functions}
     \begin{align*}
     &\text{Continuous Time: } x : \mathbb{R} \rightarrow \mathbb{R} 
     \text{ or } x : \mathbb{R} \rightarrow\mathbb{C}
@@ -10,58 +9,60 @@
     &\text{Discrete Time: } x :  \mathbb{Z} \rightarrow \mathbb{R} \text{ or } \mathbb{C}
     \end{align*}
     \[
-        X \quad\quad Y
+        x \in X \ \rightarrow \ \boxed{H} \ \rightarrow \  y \in Y
     \]
-    \[
-        x \ \texttt{->} \ \boxed{H} \ \texttt{->} \  y
-    \]
-    where $X$ is the input signal space and\\
-    $Y$ is the output signal space.
+    where $X$ is the input signal space and $Y$ is the output signal space.
     
-    Formally, we can say that $y=H(x)$. Note that systems are just mappings from functions to functions.
+    Formally, we say that $y=H(x)$. Note that systems are simply mappings from functions to functions.
     
+\subsubsection{Time Invariance}
     \begin{shaded}
-    Time Invariance:\\
-    If $\hat x(t)\stackrel{.} = x(t-T)$ then $\hat y(t) \stackrel.= y(t-T)$ must be offset but the same relative amount.
+    If $\hat x(t)\stackrel{.} = x(t-T)$ then $\hat y(t) \stackrel.= y(t-T)$. In other words, the output must be offset at the same relative amount as the input.
     \end{shaded}
     
-    Easy way to check for LTI: ZIZO.\\
-    To make sure that linearity is ensured, zero should map to zero. Note that this alone is not enough to prove linearity but it is necessary (ex. $y(t)=x^2(t)$).
+\subsubsection{Easy Check for LTI: ZIZO}
+    To make sure that linearity is ensured, zero should map to zero. Note that this alone is not enough to prove linearity but it is necessary (e.g. $y(t)=x^2(t)$).
 
-    DT-LTI:    
+\subsubsection{DT-LTI General IO Derivation}
     \[
-        \delta(n) \ \texttt{->} \ \boxed{H} \ \texttt{->} \  h(n)
+        \delta(n) \ \rightarrow \ \boxed{H} \ \rightarrow \  h(n)
     \]
     
     Time-Invariance:
     \[
-        \delta(n-k) \ \texttt{->} \ \boxed{H} \ \texttt{->} \  h(n-k)
+        \delta(n-k) \ \rightarrow \ \boxed{H} \ \rightarrow \  h(n-k)
     \]
     
     Scaling Property:
     \[
-        x(k)\delta(n-k) \ \texttt{->} \ \boxed{H} \ \texttt{->} \  x(k)h(n-k)
+        x(k)\delta(n-k) \ \rightarrow \ \boxed{H} \ \rightarrow \  x(k)h(n-k)
     \]
     
     Additivity:
     \[
-        x(n)=\sum_{k=-\infty}^\infty x(k)\delta(n-k) \ \texttt{->} \ \boxed{H} \ \texttt{->} \  \sum_{k=-\infty}^\infty x(k)h(n-k)
+        \underbrace{\sum_{k=-\infty}^\infty x(k)\delta(n-k)}_{x(n)} \ \rightarrow \ \boxed{H} \ \rightarrow \  \underbrace{\sum_{k=-\infty}^\infty x(k)h(n-k)}_{y(n)}
     \]
     
-    The importance of LTI is that you get what is essentially invertibility, which can uniquely describe a signal by its impulse response. Note that LTI systems can be seen as Convolutions.
-    
-    \textbf{Convolution is commutative:}
+    The importance of LTI is that you essentially have invertibility, which allows us to uniquely describe (i.e. characterize) a signal by its impulse response. Note that LTI systems can also be seen as convolutions.
+
+\subsubsection{Commutativity of Convolution}
+\begin{shaded}
     \[
-        y(n) = (x\star h)(n)=\sum_{k=-\infty}^\infty x(k)h(n-k)
+        y(n) = (x\star h)(n)=\sum_{k=-\infty}^\infty x(k)h(n-k) = \sum_{\ell = \infty}^{-\infty} x(n - \ell) h(\ell)
         = (h\star x)(n)
     \]
+\end{shaded}
     
-    Impulse Response of Cascade (Series) Interconnection:
+\subsubsection{Impulse Response of Cascade (Series) Interconnection}
     \[
         x(n)=\delta(n) \ \texttt{->} \ \boxed{f(n)} \ \texttt{->} \ \boxed{g(n)} \ \texttt{->} \  y(n)=(f\star g)(n)
     \]
+    
+which, via commutativity of convolution, has the same impulse response as the following system:
+\[
+        x(n)=\delta(n) \ \texttt{->} \ \boxed{g(n)} \ \texttt{->} \ \boxed{f(n)} \ \texttt{->} \  y(n)=(g\star f)(n)
+    \]
     % Expect Parallel Interconnection in future lecture xor future exam
-\end{itemize}
 
 
 \subsection{Simple Moving Average}
@@ -69,19 +70,11 @@
     x(n) \ \texttt{->} \ \boxed{h(n)} \ \texttt{->} \  y(n)=\frac1N\sum_{k=0}^{N-1} x(n-k)=\frac{x(n)+\cdots+x(n-N+1)}{N}
 \]
 
-\begin{enumerate}[label=(\alph*)]
-    \item Determine $h(n)$ and Plot it.
-    \begin{itemize}
-        \item Let $x(n)=\delta(n),$ then $y(n)=h(n)=\frac{\delta(n)+\delta(n-1)+\cdots+\delta(n-(N-1))}{N}$
-    
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=0.25]{lectures/img/Lec2_SimpleMovingAverage.png}
-            \caption{Special thanks to Jonathan Pei for this drawing}
-            \label{fig:simple_moving_average}
-        \end{figure}
-    \end{itemize}
-\end{enumerate}
-
-\subsection{Exponentially-Weighted Moving Average Filter}
-Next time :)
+Let us compute the impulse response of the system $H$. Letting $x(n)=\delta(n),$ we have \[y(n)=h(n)=\frac{\delta(n)+\delta(n-1)+\cdots+\delta(n-(N-1))}{N},\]
+and we depict this signal below:
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.25]{lectures/img/Lec2_SimpleMovingAverage.png}
+    \caption{Special thanks to Jonathan Pei for this drawing}
+    \label{fig:simple_moving_average}
+\end{figure}
