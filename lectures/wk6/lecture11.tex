@@ -161,10 +161,7 @@ Likewise we can see that we get:
 \subsubsection{Feedback}
 Given an LTI system with a feed-forward branch (Plant, $P(\omega)$) as well as a feedback branch (Controller, $K(\omega)$), find $H(\omega)$.
 
-We know from the eigenfunction property that:
-\[
-    y(t)= H(\omega)e^{i\omega t}
-\]
+We know from the eigenfunction property that: $y(t)= H(\omega)e^{i\omega t}$.
 
 Our input $x(t)\triangleq e^{i\omega t}$ tells us that:
 \begin{align*}
@@ -185,17 +182,17 @@ Our input $x(t)\triangleq e^{i\omega t}$ tells us that:
     \frac{P(\omega)}{1-K(\omega)P(\omega)}
 \end{align*}
 
-This is known as Black's Formula: \\
-(Forward Gain)/(1 - Loop Gain)
+\subsubsection{Black's Formula:}
+$H(\omega)=$ (Forward Gain)/(1 - Loop Gain)
 
 \hrulefill
 
-\begin{align*}
-    -60 dB 
-    &= 20\log_10(\frac{|\text{Out}|}{|\text{In}|})
-    \\
+\[
+    -60 \text{ dB}
+    = 20\log_{10}\left(\frac{|\text{Out}|}{|\text{In}|}\right)
+    \implies
     |\text{Out}|=\frac1{1000}|\text{In}|
-\end{align*}
+\]
 
 \hrulefill
 
@@ -219,7 +216,7 @@ Let $|K(\omega)P(\omega)|\gg1
  
 Note that here we assume the plant is stable -- which may not be necessarily true. If it is not the case then feedback can be used to stabilize it.
 
-\subsection{Application 2}
+\subsection{Application 2: Inverse System Design}
 I will title this after we get the main result.
 
 Let us now reverse the roles of the controller and plant. We will also make this a ``negative feedback loop'' as we will subtract $P(\omega)$ as it goes into the adder with the input which this sum then goes through $K(\omega)$ to give us or output.
@@ -257,4 +254,4 @@ Now with an RC circuit, realize that:
 
 The gain of $\frac1R$ acts like $K$ and the gain of $\frac1C$ composed with the integrator acts like $P$.
 
-Conclusion: the RC circuit is actually a feedback system.
+Conclusion: the RC circuit is actually \textit{a feedback system}.

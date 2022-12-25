@@ -42,7 +42,7 @@ In other words: sending in a complex exponential into an LTI system gives the sa
 \textbf{We call $\hat H(z)$ the Z Transform of $h(n)$.} Most texts will just say $H(z)$ but we add the hat to avoid confusion when talking about the DTFT (which are denoted as $H$) along with Z Transforms (which are denoted here as $\hat H$).
 
 \subsection{Region of Convergence}
-Note: we only define $\displaystyle\hat H(z)\triangleq\sum_{n=-\infty}^\infty h(n)z^{-n}\ $ \textit{when the sum converges.}
+Note: we only define $\displaystyle\hat H(z)\triangleq\sum_{n=-\infty}^\infty h(n)z^{-n}\ $ \textbf{when the sum converges.}
 
 Therefore we say that $z$ is in the Region of Convergence (ROC) if
 \[
@@ -191,7 +191,7 @@ Therefore we can say that:
     x(n)
     &\stackrel{\mathcal Z}\leftrightarrow 
     \hat X(z)=\frac{z}{z-\frac12},\quad R_x=\frac12<|z|
-    &&\text{[Multiply by $\frac zz$]}
+    &&\left[\text{Multiply by $\frac zz$}\right]
 \end{align*}
 
 \subsection{Rational Z Transforms}

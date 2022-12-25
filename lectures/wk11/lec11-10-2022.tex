@@ -42,6 +42,7 @@ A: We can do use the synthesis equation:
     &=\frac{\sin\left(\frac{\pi t}{2}\right)}{\frac{\pi t}{T_s}}
     \\
     &=\text{sinc}\left(\frac t{T_s}\right)
+    &&\text{[Normalized $\sin$]}
 \end{align*}
 
 which is $1$ at $t=0$.
@@ -52,6 +53,7 @@ We can confirm this with the synthesis equation:
     &= \frac{T_s}{2\pi}\int_{-\omega_s/2}^{\omega_s/2}  \mathrm d \omega
     \\
     &= \underbrace{\frac{T_s}{2\pi}}_{\frac1{\omega_s}} \omega_s
+    &&\left[\omega = \frac{2\pi}T\right]
     \\
     &= 1.\quad\square
 \end{align*}
@@ -115,7 +117,7 @@ If $x\in$ space of signals bandlimited to $\frac{\omega_s}{2}$ then the $x_c(t) 
 
 $\{\phi_\ell(t)\}_{\ell=-\infty^\infty}$ form an orthogonal basis.
 
-If you have taken EE 126 then you may know that $\langle X, Y\rangle \triangleq \mathbb E[XY]$. You can show this definition satisfies he least squares solution via the projection property.
+If you have taken EE 126 then you may know that $\langle X, Y\rangle \triangleq \mathbb E[XY]$. You can show this definition satisfies the least squares solution via the projection property.
 
 \hrulefill
 
