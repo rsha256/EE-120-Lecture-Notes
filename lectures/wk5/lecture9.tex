@@ -19,7 +19,7 @@ Given
     \\
     y(n)=Cq(n)
 \end{align*}
-Zero-Input Response (ZIR). You start at $q(0)$ and just let the system go (in a circuit example, this could be seen as letting the capacitor be adapted my nature).
+Zero-Input Response (ZIR). You start at $q(0)$ and just let the system go (in a circuit example, this could be seen as letting the capacitor be adapted by nature).
 
 \begin{shaded}
 The system is internally stable if $\displaystyle\lim_{n\to\infty}q(n)\to0$ regardless of the initial state ZIR $q(0)$.
@@ -43,7 +43,7 @@ If we assume $A$ has $N$ distinct eigenvectors $A\in\mathbb R^{N\times N}$ then 
     A = V\Lambda V^{-1}
 \]
 
-Any initial state can be decomposed into a linear combination of eigenvectorsL
+Any initial state can be decomposed into a linear combination of eigenvectors:
 \begin{align*}
     \vec q(0) 
     &= \alpha_1 \vec r_1 + \cdots + \alpha_N \vec r_N = \sum_{\ell=1}^N \alpha_\ell \vec r_\ell
@@ -85,7 +85,8 @@ This happens if and only if $|\lambda_i|<1\ (\forall i)$. If all the eigenvalues
 
 Note that internal stability implies BIBO-stability but the converse is not true due to unobservable mode (something that cannot be excited by the input) e.g. hidden eigenvalues which are unstable.
 
-\subsubsection{Fib Example}
-See homework.
+\subsubsection{Fibonacci Example}
+See HW3.4.
 
 \subsection{CT-LTI Systems \& Frequency Response}
+To be continued in next lecture -- we ran out of time today.

@@ -92,13 +92,13 @@ Given a Causal, BIBO Stable, System. Note that we do not care about the history 
     &=\alpha y(1)=\alpha^3 y(-1)
     \\
     \implies
-    y_{ZIR}(n)
+    y_{\text{ZIR}}(n)
     &=\alpha^{n+1} y(-1)
     \\
     \text{Now, let } y(-1)
     &=0,\ x(n)=u(n)
     \\
-    y_{ZSR}(n)
+    y_{\text{ZSR}}(n)
     &=
     {\frac{1}{1-\alpha}u(n)} - {\frac{\alpha}{1-\alpha}\alpha^n u(n)}
 \end{align*}
@@ -107,10 +107,10 @@ What's the response if $y(-1)\neq0\quad\&\quad x(n)=u(n)$?
 \end{shaded}
 \begin{align*}
     y(n)
-    &= y_{ZIR}(n) + y_{ZSR}(n)
+    &= y_{\text{ZIR}}(n) + y_{ZSR}(n)
     \\
-    &= \underbrace{\alpha^{n+1}y(-1)}_{y_{ZIR}(n)}
-    + \underbrace{\frac{1}{1-\alpha}u(n) - \frac{\alpha}{1-\alpha}\alpha^n u(n)}_{y_{ZSR}(n)}
+    &= \underbrace{\alpha^{n+1}y(-1)}_{y_{\text{ZIR}}(n)}
+    + \underbrace{\frac{1}{1-\alpha}u(n) - \frac{\alpha}{1-\alpha}\alpha^n u(n)}_{y_{\text{ZSR}}(n)}
 \end{align*}
 \hrulefill
 \begin{align*}

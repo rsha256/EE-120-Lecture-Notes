@@ -2,7 +2,7 @@
 \subsection{Watching Video}
 Here Professor Babak shows various Facebook videos that demonstrate the concept of aliasing to students.
 
-Example: If your camera samples a video of a Helicopter at the same period (rate) that the propeller moves at then the Helicopter's propellers will appear to be stationary as the Helicopter seemingly hovers upwards.
+Example: If your camera samples a video of a Helicopter at the same period (rate) that the propeller moves at then the Helicopter's propellers will appear to be stationary as the Helicopter seems to magically hovers upwards. See \href{https://www.youtube.com/watch?v=yr3ngmRuGUc}{https://www.youtube.com/watch?v=yr3ngmRuGUc} for one of the examples.
 
 \subsection{Sampling (Cont.)}
 If time $\to Z$ transform
@@ -15,7 +15,7 @@ where $z(t)=\sum_{-\infty}^\infty \delta(t-\ell T_s)$.
 
 If we send $x_z(t)$ through a reconstruction (low-pass) filter with sampling frequency $\omega=\frac{2\pi}{T_s}$ then we can get $y_c(t)$.
 
-Assuming Nyquist Criterion is met (no aliasing).
+Note that this assumes that the Nyquist Criterion is met (no aliasing).
 
 Today we will look at the time domain.
 \begin{shaded}
@@ -79,11 +79,12 @@ We can confirm this with the synthesis equation:
     \underbrace{\frac{\sin\left[\frac{\pi(t-\ell T_s)}{T_s}\right]}{\frac{\pi(t-\ell T_s)}{T_s}}}_{\phi_\ell(t)}
 \end{align*}
 
-Note that linear, quadratic, etc interpolation also exist. However for the given reconstruction filter, we found that it can be represented as a linear combination of weighted sinc's.
+Note that linear, quadratic, etc interpolation also exist. However for the given reconstruction filter, we found that it can be represented as a linear combination of weighted $\text{sinc}$'s.
+
+\subsection{Nyquist Criterion}
+To meet the Nyquist criterion, the sampling rate must be at least twice the frequency.
 
 Since the Nyquist criterion is met, the output of the reconstruction is the original signal (e.g. $y_c(t)=x_c(t)$).
-
-To meet the Nyquist criterion, the sampling rate must be at least twice the frequency.
 
 We're living in the space of CT-signals that are band-limited to $\frac{\omega_s}2$. In other words, we are looking at all non-zero signals i the range from $\omega=-\frac{\omega_s}{2}$ to $\omega=\frac{\omega_s}{2}$. This space is closed and satisfies the other properties to be a valid vector space. This vector space has a valid inner product which gives a valid geometry which tells us that the mutually orthogonal vectors (a proof of which is alluded to in homework) forms a bases.
 
@@ -244,7 +245,7 @@ Note that although \textbf{sampling is not an LTI operation} (shifting the input
     &= \frac{G}{T} H_d(\omega T) X_c(\omega)
 \end{align*}
 
-\subsection{Something fun to do}
+\subsection{ Something fun to do}
 
 \begin{align*}
     H_d(\Omega)

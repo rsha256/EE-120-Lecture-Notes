@@ -62,15 +62,15 @@ Draw a Delay-Adder-Gain (DAG) block diagram with minimum number of \textit{delay
 \end{align*}
 
 \subsection{Dirac Delta (CT Impulse)}
-Recall that
+Recall the Discrete Time unit Impulse function:
 \[
     \delta(n) = \begin{cases}
         1 & \quad n = 0
         \\
         0 & \quad \text{e/w}
-    \end{cases}
+    \end{cases}.
 \]
-and that
+We now generalize this to Continuous Time (CT), with the \textit{Dirac Delta}:
 \[
     \delta(t) = \begin{cases}
         \infty & \quad t = 0
@@ -78,9 +78,9 @@ and that
         0 & \quad t\ne0
     \end{cases}
 \]
-but note that this is a useless description by itself -- but becomes useful when applied with Calculus.
+Note: this is a useless description by itself -- but becomes useful when applied with Calculus.
 
-This can be drawn out with an arrowhead instead of a lollipop.
+Visually, this can be drawn out with an arrowhead instead of a lollipop.
 
 Recall that Newton's Second Law states: $\vec F = \frac{\mathrm{d}\vec p}{\mathrm{d}t}$
 
@@ -106,8 +106,8 @@ Strength 1 = area 1.
     = \int_{-\infty}^\infty x(\tau)\delta(t-\tau) \mathrm d\tau
 \]
 
-\subsection{CT Freq Resp}
-If LTI:
+\subsection{CT Frequency Response}
+If LTI (Linear and Time-Invariant):
 \[
     x(t) 
     = \int_{-\infty}^\infty x(\tau)\delta(t-\tau) \mathrm d\tau
@@ -120,3 +120,8 @@ If LTI:
 Let $\lambda = t - \tau 
 \implies \tau=t-\lambda
 \implies\d\lambda=-\d\tau$
+
+This $u$-substitution allows us to write $y(t)$ as
+$$
+\int_{-\infty}^\infty -h(t-\lambda)\delta(\lambda) \mathrm d\lambda.
+$$
